@@ -1,0 +1,10 @@
+dog
+cat
+key
+may
+way
+eat
+bat
+set
+get
+sun
