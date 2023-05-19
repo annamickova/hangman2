@@ -9,7 +9,7 @@ public class Display{
 
 
     public String picture(int attempts){
-        String pic = "aaa";
+        String pic = "a";
         switch (attempts) {
             case 9 -> {
                 pic = " ";
@@ -128,5 +128,15 @@ public class Display{
 
         }
         return pic;
+    }
+
+    public String result(int attempts, StringBuilder line){
+        String result = "";
+        if (attempts == 0){
+            result = "out of attempts, try agan";
+        }else if (!line.toString().contains("_")){
+            result= "well done";
+        }
+        return result;
     }
 }

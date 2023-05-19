@@ -38,47 +38,51 @@ public class Game extends Words{
     }
 
     public void play(){
-       selectWord();
+        System.out.println(selectWord());
         Scanner sc =  new Scanner(System.in);
         StringBuilder line = new StringBuilder();
-
+        int attempts = 9;
         for (int i = 0; i < wordToGuess.length(); i++) {
             line.append("_");
         }
-        int attempts = 9 ;
-        boolean correct;
+        answering(line, sc,attempts);
+
+
+    }
+
+    public void answering(StringBuilder line, Scanner sc, int attempts){
         while (attempts > 0 && line.toString().contains("_")){
             String answer;
             System.out.println(line);
             System.out.println("attempts: " + attempts);
             System.out.println(picture(attempts));
-            correct = false;
             System.out.println("enter letter");
             answer = sc.next();
             System.out.println(usedLetters(answer.charAt(0)));
-            for (int i = 0; i < wordToGuess.length(); i++) {
-                if (answer.charAt(0) == wordToGuess.charAt(i)){
-                    line.setCharAt(i, answer.charAt(0));
-                    correct = true;
-                }
-            }
-            if (correct == false){
-                attempts = attempts -1;
+
+            if (!correction(answer, line)){
+                attempts--;
                 System.out.println("incorrect guess");
             }
-            if (!line.toString().contains("_")){
-                System.out.println("congrats");
-                System.out.println(wordToGuess);
-            }else if (attempts == 0){
-                System.out.println("out of attempts, try again");
-                System.out.println(wordToGuess);
-            }
-         }
-
+            System.out.println(result(attempts, line));
+        }
     }
 
-    public String usedLetters(char answer){
+    public boolean correction(String answer, StringBuilder line){
+        boolean correct = false;
         for (int i = 0; i < wordToGuess.length(); i++) {
+            if (answer.charAt(0) == wordToGuess.charAt(i)){
+                line.setCharAt(i, answer.charAt(0));
+                correct = true;
+            }
+        }
+        return correct;
+    }
+
+
+
+    public String usedLetters(char answer){
+        for (int i = 0; i < leftChars.size(); i++) {
             if (answer == leftChars.get(i)){
                 usedChars.add(leftChars.get(i));
                 leftChars.remove(i);
